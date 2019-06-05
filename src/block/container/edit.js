@@ -65,6 +65,7 @@ const edit = props => {
 
 	const mainStyle = {
 		'--ugb-text-color': textColor ? textColor : undefined,
+		color: textColor ? textColor : undefined,
 		backgroundColor: backgroundColor ? backgroundColor : undefined,
 		backgroundImage: backgroundImageURL ? `url(${ backgroundImageURL })` : undefined,
 		backgroundAttachment: fixedBackground ? 'fixed' : undefined,
