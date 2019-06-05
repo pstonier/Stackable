@@ -167,7 +167,7 @@ const deprecatedSave_1_11 = props => {
 		className,
 		'ugb-container',
 		'ugb--background-opacity-' + ( 1 * Math.round( backgroundOpacity / 1 ) ),
-	], applyFilters( 'stackable.container.mainclasses', {
+	], {
 		[ `ugb-container--content-${ contentAlign }` ]: contentAlign,
 		'ugb--has-background': ( backgroundColor && backgroundColor !== 'transparent' ) || backgroundImageURL,
 		'ugb--has-background-image': backgroundImageURL,
@@ -177,7 +177,7 @@ const deprecatedSave_1_11 = props => {
 		[ `ugb--shadow-${ shadow }` ]: shadow !== 3,
 		[ `ugb--has-background-gradient` ]: backgroundColorType === 'gradient',
 		[ `ugb--has-background-video` ]: backgroundType === 'video',
-	}, design, props ) )
+	} )
 
 	const mainStyle = {
 		'--ugb-text-color': textColor ? textColor : undefined,
@@ -202,13 +202,11 @@ const deprecatedSave_1_11 = props => {
 					src={ backgroundImageURL }
 				/>
 			) }
-			{ applyFilters( 'stackable.container.edit.output.before', null, design, props ) }
 			<div className="ugb-container__wrapper">
 				<div className="ugb-container__content-wrapper">
 					<InnerBlocks.Content />
 				</div>
 			</div>
-			{ applyFilters( 'stackable.container.edit.output.after', null, design, props ) }
 		</div>
 	)
 }
