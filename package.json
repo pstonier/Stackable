@@ -99,9 +99,7 @@
     "lint-js": "wp-scripts lint-js .",
     "lint-js:fix": "wp-scripts lint-js . --fix",
     "lint-css": "stylelint './src/**/*.scss'",
-    "lint-css:fix": "stylelint './src/**/*.scss' --fix",
-    "check-licenses": "concurrently \"wp-scripts check-licenses --prod --gpl2\" \"wp-scripts check-licenses --dev\"",
-    "postinstall": "npm run check-licenses"
+    "lint-css:fix": "stylelint './src/**/*.scss' --fix"
   },
   "lint-staged": {
     "package.json": [

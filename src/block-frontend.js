@@ -4,6 +4,11 @@
  * This is the file that Webpack is compiling into blocks.frontend.build.js
  */
 
+// missing forEach on NodeList for IE11
+if ( window.NodeList && ! window.NodeList.prototype.forEach ) {
+	window.NodeList.prototype.forEach = Array.prototype.forEach
+}
+
 const context = require.context(
 	'./block', // Search within the src/blocks directory.
 	true, // Search recursively.
