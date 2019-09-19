@@ -23,7 +23,6 @@ import blockData from './blocks'
 import classnames from 'classnames'
 import domReady from '@wordpress/dom-ready'
 import { Spinner } from '@wordpress/components'
-
 class BlockToggler extends Component {
 	constructor() {
 		super( ...arguments )
@@ -36,13 +35,11 @@ class BlockToggler extends Component {
 			isSaving: false,
 		}
 	}
-
 	// Send our changes.
 	componentDidUpdate( prevProps, prevState ) {
 		if ( this.state.disabledBlocks === prevState.disabledBlocks ) {
 			return
 		}
-
 		clearTimeout( this.ajaxTimeout )
 		this.ajaxTimeout = setTimeout( () => {
 			ajaxSend( 'stackable_update_disable_blocks', {
@@ -61,7 +58,6 @@ class BlockToggler extends Component {
 			this.setState( { isSaving: true } )
 		}, 600 )
 	}
-
 	toggleBlock( blockName ) {
 		if ( this.state.disabledBlocks.includes( blockName ) ) {
 			this.setState( { disabledBlocks: this.state.disabledBlocks.filter( value => value !== blockName ) } )
@@ -69,18 +65,14 @@ class BlockToggler extends Component {
 			this.setState( { disabledBlocks: [ ...this.state.disabledBlocks, blockName ] } )
 		}
 	}
-
 	enableAllBlocks() {
 		this.setState( { disabledBlocks: [] } )
 	}
-
 	disableAllBlocks() {
 		this.setState( { disabledBlocks: Object.keys( this.props.blocks ) } )
 	}
-
 	render() {
 		const { blocks: blockData } = this.props
-
 		return (
 			<div>
 				<div className="s-settings-header">
@@ -92,12 +84,10 @@ class BlockToggler extends Component {
 					{ Object.keys( blockData ).map( ( blockName, i ) => {
 						const block = blockData[ blockName ]
 						const blockNameTrim = blockName.replace( /\w+\//, '' )
-
 						// Don't show blocks that we really hide due to deprecation.
 						if ( block.sDeprecated ) {
 							return null
 						}
-
 						const isDisabled = this.state.disabledBlocks.includes( blockName )
 						const mainClasses = classnames( [
 							's-box',
@@ -128,7 +118,6 @@ class BlockToggler extends Component {
 		)
 	}
 }
-
 class ProNoticeToggler extends Component {
 	constructor() {
 		super( ...arguments )
@@ -139,12 +128,10 @@ class ProNoticeToggler extends Component {
 			isSaving: false,
 		}
 	}
-
 	componentDidUpdate( prevProps, prevState ) {
 		if ( this.state.checked === prevState.checked ) {
 			return
 		}
-
 		clearTimeout( this.ajaxTimeout )
 		this.ajaxTimeout = setTimeout( () => {
 			ajaxSend( 'stackable_update_show_pro_notice_option', {
@@ -163,7 +150,6 @@ class ProNoticeToggler extends Component {
 			this.setState( { isSaving: true } )
 		}, 600 )
 	}
-
 	toggle() {
 		this.setState( { checked: ! this.state.checked } )
 	}
@@ -183,7 +169,6 @@ class ProNoticeToggler extends Component {
 		)
 	}
 }
-
 const knowledgeBaseList = () => {
 	return (
 		<ul className="s-tabs-list">
@@ -199,7 +184,7 @@ const knowledgeBaseList = () => {
 					<span>{ __( 'Stuck with something? Email us and we’ll help you out.', i18n ) }</span>
 				</li>
 			}
-			<li style={ { display: 'none' } }>
+			<li>
 				<a href="https://facebook.com/groups/wpstackable" target="_blank" rel="noopener noreferrer"><strong>{ __( 'Facebook Community Group', i18n ) }</strong></a>
 				<br />
 				<span>{ __( 'Connect with other people using Stackable and join the discussion.', i18n ) }</span>
@@ -217,15 +202,12 @@ const knowledgeBaseList = () => {
 		</ul>
 	)
 }
-
 class HelpTabs extends Component {
 	render() {
-
 		// If already pro, no need to show the tabs.
 		if ( isPro ) {
 			return knowledgeBaseList()
 		}
-
 		return (
 			<Tabs>
 				<TabList className="s-tabs">
@@ -264,20 +246,17 @@ class HelpTabs extends Component {
 		)
 	}
 }
-
 // Load all the options into the UI.
 domReady( () => {
 	render(
 		<BlockToggler blocks={ blockData } disabledBlocks={ disabledBlocks } />,
 		document.querySelector( '.s-settings-wrapper' )
 	)
-
 	if ( document.querySelector( '.s-pro-control-wrapper' ) ) {
 		render(
 			<ProNoticeToggler checked={ showProNoticesOption } />,
 			document.querySelector( '.s-pro-control-wrapper' )
 		)
 	}
-
 	render( <HelpTabs />, document.querySelector( '#s-help-area' ) )
 } )
